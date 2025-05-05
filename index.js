@@ -26,9 +26,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-}
-);
+    const mongoStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+    res.send(`Hello World! MongoDB is ${mongoStatus}.`);
+});
 
 app.use("/auth",authRoute);
 app.use("/product",productRoute);
